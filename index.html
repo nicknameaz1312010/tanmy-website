@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tân Mỹ Group — Công ty Cổ phần Đầu tư & Sản xuất Tân Mỹ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Be Vietnam Pro', sans-serif; color: #333; line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== SECTION 1: HEADER ===== */
+.header { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid #e8e8e8; transition: box-shadow 0.3s ease; }
+.header.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.logo-square { width: 36px; height: 36px; background: #c0392b; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 20px; flex-shrink: 0; }
+.logo-text { display: flex; flex-direction: column; }
+.logo-text .brand { font-size: 18px; font-weight: 700; color: #1a3a6b; line-height: 1.1; }
+.logo-text .slogan { font-size: 10px; color: #666; line-height: 1; }
+
+/* Menu */
+.header-nav { display: flex; align-items: center; gap: 0; }
+.nav-list { display: flex; align-items: center; gap: 0; }
+.nav-item { position: relative; }
+.nav-item > a { display: block; padding: 0 14px; font-size: 13px; font-weight: 500; color: #333; text-transform: uppercase; letter-spacing: 0.5px; line-height: 68px; transition: color 0.25s ease; border-bottom: 2px solid transparent; }
+.nav-item > a:hover, .nav-item > a.active { color: #c0392b; border-bottom-color: #c0392b; }
+
+/* Dropdown */
+.dropdown { position: absolute; top: 100%; left: 0; min-width: 200px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-radius: 0 0 4px 4px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: all 0.25s ease; z-index: 100; }
+.nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.dropdown a { display: block; padding: 10px 18px; font-size: 14px; color: #333; transition: all 0.2s ease; }
+.dropdown a:hover { background: #f5f6fa; color: #c0392b; padding-left: 24px; }
+
+/* Header right */
+.header-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.header-right .search-icon { cursor: pointer; font-size: 16px; color: #333; }
+.lang-switch { display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 13px; font-weight: 500; color: #333; position: relative; padding: 4px 8px; }
+.lang-dropdown { position: absolute; top: 100%; right: 0; min-width: 60px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-radius: 4px; opacity: 0; visibility: hidden; transform: translateY(4px); transition: all 0.2s ease; }
+.lang-switch:hover .lang-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.lang-dropdown a { display: block; padding: 6px 14px; font-size: 13px; color: #333; }
+.lang-dropdown a:hover { background: #f5f6fa; }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: #1a3a6b; border-radius: 2px; transition: all 0.3s ease; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile nav */
+.mobile-nav { display: none; position: fixed; top: 68px; left: 0; width: 100%; height: calc(100vh - 68px); background: #fff; z-index: 999; overflow-y: auto; transform: translateX(-100%); transition: transform 0.3s ease; }
+.mobile-nav.open { transform: translateX(0); }
+.mobile-nav-list { padding: 16px; }
+.mobile-nav-item { border-bottom: 1px solid #eee; }
+.mobile-nav-item > a { display: block; padding: 14px 0; font-size: 15px; font-weight: 500; color: #333; text-transform: uppercase; }
+.mobile-nav-item > a.active { color: #c0392b; }
+.mobile-dropdown-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.mobile-dropdown-toggle .arrow { transition: transform 0.3s ease; }
+.mobile-dropdown-toggle.open .arrow { transform: rotate(180deg); }
+.mobile-sub { display: none; padding: 0 0 8px 16px; }
+.mobile-sub.open { display: block; }
+.mobile-sub a { display: block; padding: 8px 0; font-size: 14px; color: #555; }
+
+/* ===== SECTION 2: HERO BANNER ===== */
+.hero { height: 100vh; position: relative; overflow: hidden; background: #0d1f3c; }
+.hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80') center/cover no-repeat; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,30,70,0.85) 0%, rgba(10,30,70,0.5) 50%, transparent 100%); }
+.hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; height: 100%; padding-left: 80px; padding-right: 24px; max-width: 1200px; margin: 0 auto; }
+.hero-content .line1 { font-size: 52px; font-weight: 300; color: #fff; letter-spacing: 2px; }
+.hero-content .line2 { font-size: 58px; font-weight: 700; color: #fff; line-height: 1.1; }
+.hero-content .line3 { font-size: 58px; font-weight: 700; color: #fff; }
+.hero-content p { max-width: 480px; margin-top: 16px; font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+.hero-cta { display: flex; gap: 16px; margin-top: 32px; }
+.btn-primary { background: #1a3a6b; border: 2px solid #1a3a6b; color: #fff; padding: 14px 28px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.25s ease; font-family: inherit; }
+.btn-primary:hover { background: #c0392b; border-color: #c0392b; }
+.btn-secondary { background: transparent; border: 2px solid #fff; color: #fff; padding: 14px 28px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.25s ease; font-family: inherit; }
+.btn-secondary:hover { background: #fff; color: #1a3a6b; }
+
+.hero-video-btn { position: absolute; bottom: 40px; right: 40px; z-index: 3; display: flex; align-items: center; gap: 10px; color: #fff; cursor: pointer; }
+.hero-video-btn .circle { width: 50px; height: 50px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #1a3a6b; flex-shrink: 0; }
+.hero-video-btn span { font-size: 13px; font-weight: 500; }
+
+.scroll-indicator { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 3; color: #fff; font-size: 22px; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
+
+/* ===== SECTION 3: STATS ===== */
+.stats { padding: 40px 0; background: #fff; }
+.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
+.stat-item { text-align: center; padding: 20px 12px; position: relative; }
+.stat-item:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 60%; background: #e8e8e8; }
+.stat-icon { margin-bottom: 8px; }
+.stat-icon svg { width: 36px; height: 36px; fill: #1a3a6b; }
+.stat-number { font-size: 42px; font-weight: 700; color: #1a3a6b; line-height: 1.1; }
+.stat-label { font-size: 14px; color: #666; margin-top: 4px; }
+
+/* ===== SECTION 4: PRODUCT CARDS ===== */
+.product-cards { display: flex; min-height: 380px; }
+.product-card { flex: 1; position: relative; padding: 48px 40px 40px 48px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.product-card-left { background: #1a3a6b; }
+.product-card-right { background: #7da96e; }
+.product-card .card-title { font-size: 26px; font-weight: 700; color: #fff; }
+.product-card .card-subtitle { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
+.product-card ul { margin: 0; }
+.product-card ul li { font-size: 14px; color: #fff; line-height: 2; }
+.product-card ul li::before { content: '\2713'; color: #4CAF50; margin-right: 8px; font-weight: 700; }
+.product-card .btn-outline { display: inline-block; border: 2px solid #fff; color: #fff; background: transparent; padding: 12px 24px; border-radius: 4px; margin-top: 28px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.25s ease; font-family: inherit; }
+.product-card .btn-outline:hover { background: #fff; color: #1a3a6b; }
+.product-card-right .btn-outline:hover { color: #5a8a4e; }
+.product-card .card-img { position: absolute; right: 0; bottom: 0; width: 55%; height: 100%; object-fit: cover; opacity: 0.7; pointer-events: none; }
+.product-card .brand-badge { position: absolute; }
+.product-card-left .brand-badge { bottom: 24px; right: 24px; text-align: right; z-index: 2; }
+.product-card-left .brand-badge .zava-name { font-size: 32px; font-weight: 900; color: #fff; line-height: 1; }
+.product-card-left .brand-badge .zava-sub { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 2px; }
+.product-card-right .brand-badge { top: 24px; right: 24px; z-index: 2; background: #fff; padding: 6px 16px; border-radius: 20px; }
+.product-card-right .brand-badge span { font-weight: 700; color: #c0392b; font-size: 13px; }
+
+/* ===== SECTION 5: QUY TRÌNH SẢN XUẤT ===== */
+.process { padding: 72px 0; background: #fff; }
+.section-header { text-align: center; margin-bottom: 48px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+.section-header .line { flex: 0 0 60px; height: 1px; background: #1a3a6b; }
+.section-header h2 { font-size: 20px; font-weight: 700; color: #1a3a6b; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+.process-steps { display: flex; align-items: flex-start; gap: 0; }
+.process-step { flex: 1; text-align: center; padding: 0 8px; }
+.step-number { width: 40px; height: 40px; background: #1a3a6b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; margin: 0 auto; }
+.step-name { font-size: 14px; font-weight: 600; color: #1a3a6b; margin: 8px 0 4px; }
+.step-desc { font-size: 12px; color: #666; }
+.step-img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; margin-top: 12px; background: #f0f0f0; }
+.process-arrow { display: flex; align-items: center; justify-content: center; padding: 0 4px; color: #1a3a6b; font-size: 24px; font-weight: 700; flex-shrink: 0; padding-top: 10px; }
+
+/* ===== SECTION 6: CHỨNG NHẬN & DỰ ÁN ===== */
+.cert-projects { padding: 72px 0; background: #f5f6fa; }
+.cert-projects-inner { display: flex; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* Certificates */
+.cert-left { flex: 0 0 35%; background: #fff; border-radius: 12px; padding: 32px; }
+.cert-left h3 { font-weight: 700; color: #1a3a6b; font-size: 16px; text-align: center; margin-bottom: 24px; }
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; justify-items: center; }
+.cert-badge { width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; text-align: center; line-height: 1.3; flex-direction: column; padding: 8px; }
+.cert-badge.iso { background: #fff; border: 2px solid #1a3a6b; color: #1a3a6b; }
+.cert-badge.quaset { background: #e8f4fd; border: 2px solid #2980b9; color: #2980b9; }
+.cert-badge.ed { background: #fef9e7; border: 2px solid #f39c12; color: #b7950b; }
+.cert-badge.qualicoat { background: #eafaf1; border: 2px solid #27ae60; color: #27ae60; }
+.cert-badge .cert-sub { font-weight: 400; font-size: 9px; margin-top: 2px; }
+
+/* Projects */
+.projects-right { flex: 1; min-width: 0; }
+.projects-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.projects-header h3 { font-weight: 700; color: #1a3a6b; font-size: 16px; }
+.projects-header a { color: #c0392b; font-size: 14px; font-weight: 500; }
+.projects-header a:hover { text-decoration: underline; }
+.project-slider { position: relative; overflow: hidden; }
+.project-slides { display: flex; transition: transform 0.5s ease; }
+.project-slide { flex: 0 0 100%; min-width: 0; padding: 0 6px; }
+.project-slide img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; background: #ddd; }
+.project-slide .caption { font-size: 12px; color: #333; text-align: center; margin-top: 6px; font-weight: 500; }
+.project-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+.project-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: background 0.3s ease; }
+.project-dots .dot.active { background: #1a3a6b; }
+
+/* ===== SECTION 7: TIN TỨC ===== */
+.news { padding: 72px 0; background: #fff; }
+.news-header { text-align: center; margin-bottom: 40px; }
+.news-header h2 { font-size: 24px; font-weight: 700; color: #1a3a6b; }
+.news-header .underline { width: 40px; height: 3px; background: #c0392b; margin: 12px auto 0; }
+.news-grid { display: flex; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.news-main { flex: 0 0 40%; }
+.news-main-card { position: relative; border-radius: 8px; overflow: hidden; background: #fff; transition: all 0.25s ease; }
+.news-main-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.news-main-card .img-wrap { position: relative; }
+.news-main-card .img-wrap img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
+.news-badge { position: absolute; top: 16px; left: 16px; background: #c0392b; color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 2px; }
+.news-main-card .content { padding: 16px 20px 20px; }
+.news-date { font-size: 13px; color: #999; }
+.news-main-card .content h3 { font-size: 18px; font-weight: 600; color: #1a3a6b; line-height: 1.4; margin: 6px 0 8px; }
+.news-main-card .content a { color: #c0392b; font-size: 14px; font-weight: 500; }
+.news-main-card .content a:hover { text-decoration: underline; }
+
+.news-side { flex: 0 0 35%; display: flex; flex-direction: column; gap: 16px; }
+.news-side-item { display: flex; gap: 14px; cursor: pointer; transition: all 0.25s ease; padding: 8px; border-radius: 6px; }
+.news-side-item:hover { background: #f9f9f9; }
+.news-side-item img { width: 80px; height: 80px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: #eee; }
+.news-side-item .date { font-size: 12px; color: #999; }
+.news-side-item h4 { font-size: 14px; font-weight: 600; color: #1a3a6b; line-height: 1.4; }
+.news-divider { height: 1px; background: #eee; }
+
+.news-video { flex: 0 0 25%; }
+.news-video-card { background: #1a3a6b; border-radius: 8px; padding: 24px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; min-height: 300px; }
+.news-video-card .vid-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=60') center/cover no-repeat; opacity: 0.3; }
+.news-video-card .vid-content { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.news-video-card .vid-text h4 { font-size: 22px; font-weight: 700; color: #fff; }
+.news-video-card .vid-text p { font-size: 16px; font-weight: 600; color: #fff; margin-top: 4px; }
+.btn-video { background: #fff; color: #1a3a6b; padding: 10px 20px; border-radius: 4px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.25s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; }
+.btn-video:hover { background: #c0392b; color: #fff; }
+
+/* ===== SECTION 8: FOOTER ===== */
+.footer { background: #0d2b5e; color: #fff; padding: 60px 80px 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr 1.3fr; gap: 40px; max-width: 1200px; margin: 0 auto; }
+.footer-col .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.footer-col .footer-logo .logo-square { width: 32px; height: 32px; font-size: 18px; }
+.footer-col .footer-logo .logo-text .brand { font-size: 16px; }
+.footer-col .footer-logo .logo-text .slogan { font-size: 9px; color: rgba(255,255,255,0.6); }
+.footer-col .company-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; margin: 8px 0 10px; }
+.footer-col p, .footer-col a { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.8; }
+.footer-col .contact-info { display: flex; flex-direction: column; gap: 2px; }
+.footer-col .social-icons { display: flex; gap: 10px; margin-top: 12px; }
+.footer-col .social-icons a svg { width: 24px; height: 24px; fill: rgba(255,255,255,0.7); transition: fill 0.25s ease; }
+.footer-col .social-icons a:hover svg { fill: #fff; }
+
+.footer-col h4 { font-size: 14px; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 1px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 16px; }
+.footer-col ul li a { display: block; padding: 4px 0; transition: all 0.25s ease; }
+.footer-col ul li a:hover { color: #fff; padding-left: 6px; }
+
+.footer-newsletter p { margin-bottom: 16px; }
+.newsletter-form { display: flex; }
+.newsletter-form input { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 10px 14px; border-radius: 4px 0 0 4px; outline: none; font-family: inherit; font-size: 13px; }
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+.newsletter-form button { background: #c0392b; color: #fff; padding: 10px 14px; border: none; border-radius: 0 4px 4px 0; cursor: pointer; transition: background 0.25s ease; font-size: 16px; }
+.newsletter-form button:hover { background: #a93226; }
+
+.footer-divider { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.5); }
+.footer-bottom .footer-links { display: flex; gap: 16px; }
+.footer-bottom .footer-links a { font-size: 12px; color: rgba(255,255,255,0.5); transition: color 0.25s ease; }
+.footer-bottom .footer-links a:hover { color: #fff; }
+
+/* ===== SECTION SPACING ===== */
+section { padding: 72px 0; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1023px) {
+  .nav-list { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: block; }
+  .header-right .search-icon, .lang-switch { display: none; }
+  .product-cards { flex-direction: column; }
+  .product-card .card-img { width: 40%; }
+  .cert-projects-inner { flex-direction: column; }
+  .cert-left { flex: 1; }
+  .news-grid { flex-direction: column; }
+  .news-main, .news-side, .news-video { flex: 1; }
+  .news-video-card { min-height: 200px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .process-steps { flex-wrap: wrap; justify-content: center; }
+  .process-step { flex: 0 0 45%; margin-bottom: 24px; }
+  .process-arrow { display: none; }
+}
+
+@media (max-width: 767px) {
+  section { padding: 48px 0; }
+  .hero-content { padding-left: 24px; }
+  .hero-content .line1 { font-size: 28px; }
+  .hero-content .line2 { font-size: 32px; }
+  .hero-content .line3 { font-size: 32px; }
+  .hero-content p { font-size: 14px; }
+  .hero-cta { flex-direction: column; gap: 12px; }
+  .hero-video-btn { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2)::after { display: none; }
+  .stat-item:nth-child(4)::after { display: none; }
+  .stat-item:nth-child(5) { grid-column: span 2; }
+  .product-card { padding: 32px 24px; }
+  .product-card .card-img { width: 35%; opacity: 0.4; }
+  .product-card-left .brand-badge { bottom: 16px; right: 16px; }
+  .product-card-left .brand-badge .zava-name { font-size: 22px; }
+  .process-step { flex: 0 0 100%; }
+  .process-step .step-img { height: 120px; }
+  .project-slide img { height: 120px; }
+  .cert-left { padding: 20px; }
+  .footer { padding: 40px 20px 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .footer-bottom .footer-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SECTION 1: HEADER ===== -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#hero" class="header-logo">
+      <div class="logo-square">T</div>
+      <div class="logo-text">
+        <span class="brand">TAN MY</span>
+        <span class="slogan">Thương Tồn Cùng Thời Gian</span>
+      </div>
+    </a>
+
+    <nav class="header-nav">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#hero" class="active">Trang Chủ</a></li>
+        <li class="nav-item"><a href="#process">Giới Thiệu</a></li>
+        <li class="nav-item">
+          <a href="#products">Nhóm Tân Mỹ ▾</a>
+          <div class="dropdown">
+            <a href="#products">Hệ nhôm ZAVA</a>
+            <a href="#products">Nhôm xây dựng</a>
+            <a href="#products">Nhôm công nghiệp</a>
+            <a href="#products">Nhôm kiến trúc</a>
+            <a href="#products">Nhà máy nhôm</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#products">Gia Dụng Tân Mỹ ▾</a>
+          <div class="dropdown">
+            <a href="#products">Bồn nước inox</a>
+            <a href="#products">Chậu rửa inox</a>
+            <a href="#products">Máy nước nóng NLMT</a>
+            <a href="#products">Bồn nhựa</a>
+            <a href="#products">Bể phốt Septic</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="#projects">Dự Án</a></li>
+        <li class="nav-item"><a href="#news">Tin Tức</a></li>
+        <li class="nav-item"><a href="#footer">Tuyển Dụng</a></li>
+        <li class="nav-item"><a href="#footer">Liên Hệ</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-right">
+      <span class="search-icon">🔍</span>
+      <div class="lang-switch">
+        VI ▾
+        <div class="lang-dropdown">
+          <a href="#">VI</a>
+          <a href="#">EN</a>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <ul class="mobile-nav-list">
+      <li class="mobile-nav-item"><a href="#hero" class="active">Trang Chủ</a></li>
+      <li class="mobile-nav-item"><a href="#process">Giới Thiệu</a></li>
+      <li class="mobile-nav-item">
+        <div class="mobile-dropdown-toggle" onclick="toggleMobileSub(this)">
+          <span>Nhóm Tân Mỹ</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="mobile-sub">
+          <a href="#products">Hệ nhôm ZAVA</a>
+          <a href="#products">Nhôm xây dựng</a>
+          <a href="#products">Nhôm công nghiệp</a>
+          <a href="#products">Nhôm kiến trúc</a>
+          <a href="#products">Nhà máy nhôm</a>
+        </div>
+      </li>
+      <li class="mobile-nav-item">
+        <div class="mobile-dropdown-toggle" onclick="toggleMobileSub(this)">
+          <span>Gia Dụng Tân Mỹ</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="mobile-sub">
+          <a href="#products">Bồn nước inox</a>
+          <a href="#products">Chậu rửa inox</a>
+          <a href="#products">Máy nước nóng NLMT</a>
+          <a href="#products">Bồn nhựa</a>
+          <a href="#products">Bể phốt Septic</a>
+        </div>
+      </li>
+      <li class="mobile-nav-item"><a href="#projects">Dự Án</a></li>
+      <li class="mobile-nav-item"><a href="#news">Tin Tức</a></li>
+      <li class="mobile-nav-item"><a href="#footer">Tuyển Dụng</a></li>
+      <li class="mobile-nav-item"><a href="#footer">Liên Hệ</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ===== SECTION 2: HERO BANNER ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="line1">Tân Mỹ</div>
+    <div class="line2">KIẾN TẠO GIÁ TRỊ</div>
+    <div class="line3">BỀN VỮNG TỪ NHÔM VIỆT</div>
+    <p>Nhà sản xuất nhôm định hình, sản phẩm gia dụng và giải pháp vật liệu xây dựng hàng đầu Việt Nam</p>
+    <div class="hero-cta">
+      <a href="#process" class="btn-primary">▶ KHÁM PHÁ NHÀ MÁY</a>
+      <a href="#footer" class="btn-secondary">LIÊN HỆ TƯ VẤN</a>
+    </div>
+  </div>
+  <div class="hero-video-btn" onclick="alert('Video giới thiệu Tân Mỹ Group')">
+    <div class="circle">▶</div>
+    <span>XEM VIDEO GIỚI THIỆU</span>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</section>
+
+<!-- ===== SECTION 3: THANH SỐ LIỆU THỐNG KÊ ===== -->
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="stat-number" data-target="25">0</div>
+        <div class="stat-label">Năm kinh nghiệm</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 21V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2zM4 7h16v2H4V7zm0 4h16v2H4v-2zm0 4h16v2H4v-2z"/></svg>
+        </div>
+        <div class="stat-number" data-target="50000">0+</div>
+        <div class="stat-label">Tấn nhôm mỗi năm</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-1 .05 1.16.84 2 1.87 2 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <div class="stat-number" data-target="1000">0+</div>
+        <div class="stat-label">Đại lý & đối tác</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="stat-number" data-target="63">0</div>
+        <div class="stat-label">Tỉnh thành phân phối</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div class="stat-number" style="font-size:28px">Xuất khẩu</div>
+        <div class="stat-label">Nhiều quốc gia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: HAI CARD SẢN PHẨM CHÍNH ===== -->
+<section class="product-cards" id="products">
+  <div class="product-card product-card-left">
+    <div class="card-title">NHÔM TÂN MỸ – ZAVA</div>
+    <div class="card-subtitle">Giải pháp nhôm định hình cho mọi công trình</div>
+    <ul>
+      <li>Hệ nhôm ZAVA</li>
+      <li>Nhôm xây dựng</li>
+      <li>Nhôm công nghiệp</li>
+      <li>Nhôm kiến trúc</li>
+    </ul>
+    <a href="#process" class="btn-outline">KHÁM PHÁ NGÀNH NHÔM</a>
+    <img class="card-img" src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Tòa nhà kính hiện đại" loading="lazy">
+    <div class="brand-badge">
+      <div class="zava-name">ZAVA</div>
+      <div class="zava-sub">ALUMINIUM</div>
+    </div>
+  </div>
+  <div class="product-card product-card-right">
+    <div class="card-title">GIA DỤNG TÂN MỸ</div>
+    <div class="card-subtitle">Sản phẩm chất lượng cho cuộc sống tiện nghi</div>
+    <ul>
+      <li>Bồn nước inox</li>
+      <li>Chậu rửa inox</li>
+      <li>Máy nước nóng NLMT</li>
+      <li>Bồn nhựa</li>
+      <li>Bể phốt Septic</li>
+    </ul>
+    <a href="#process" class="btn-outline">KHÁM PHÁ SẢN PHẨM</a>
+    <img class="card-img" src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80" alt="Sản phẩm gia dụng inox" loading="lazy">
+    <div class="brand-badge"><span>TAN MY</span></div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: QUY TRÌNH SẢN XUẤT HIỆN ĐẠI ===== -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="line"></span>
+      <h2>— QUY TRÌNH SẢN XUẤT HIỆN ĐẠI —</h2>
+      <span class="line"></span>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <div class="step-name">Nguyên liệu</div>
+        <div class="step-desc">Billet nhôm</div>
+        <img class="step-img" src="https://images.unsplash.com/photo-1590514242047-0dd41e7c9e7f?w=280&h=160&fit=crop&q=80" alt="Nguyên liệu nhôm" loading="lazy">
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <div class="step-name">Đùn ép</div>
+        <div class="step-desc">—</div>
+        <img class="step-img" src="https://images.unsplash.com/photo-1567446537708-ac4aa75c9c28?w=280&h=160&fit=crop&q=80" alt="Đùn ép nhôm" loading="lazy">
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <div class="step-name">Xử lý bề mặt</div>
+        <div class="step-desc">Sơn tĩnh điện</div>
+        <img class="step-img" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=280&h=160&fit=crop&q=80" alt="Sơn tĩnh điện công nghiệp" loading="lazy">
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <div class="step-name">Kiểm định</div>
+        <div class="step-desc">Chất lượng</div>
+        <img class="step-img" src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=280&h=160&fit=crop&q=80" alt="Kiểm định chất lượng" loading="lazy">
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-step">
+        <div class="step-number">5</div>
+        <div class="step-name">Thành phẩm</div>
+        <div class="step-desc">Đóng gói – Xuất hàng</div>
+        <img class="step-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=280&h=160&fit=crop&q=80" alt="Kho thành phẩm" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: CHỨNG NHẬN & DỰ ÁN TIÊU BIỂU ===== -->
+<section class="cert-projects" id="projects">
+  <div class="cert-projects-inner">
+    <div class="cert-left">
+      <h3>CHỨNG NHẬN CHẤT LƯỢNG</h3>
+      <div class="cert-grid">
+        <div class="cert-badge iso">ISO<span class="cert-sub">9001:2015</span></div>
+        <div class="cert-badge quaset">QUASET<span class="cert-sub">Chứng nhận</span></div>
+        <div class="cert-badge ed">ED<span class="cert-sub">Certification</span></div>
+        <div class="cert-badge qualicoat">QUALICOAT<span class="cert-sub">Chứng nhận</span></div>
+      </div>
+    </div>
+    <div class="projects-right">
+      <div class="projects-header">
+        <h3>DỰ ÁN TIÊU BIỂU</h3>
+        <a href="#">XEM TẤT CẢ →</a>
+      </div>
+      <div class="project-slider" id="projectSlider">
+        <div class="project-slides" id="projectSlides">
+          <div class="project-slide">
+            <img src="https://images.unsplash.com/photo-1549517045-bc93de075e1a?w=400&h=160&fit=crop&q=80" alt="Vinhomes Ocean Park" loading="lazy">
+            <div class="caption">VINHOMES OCEAN PARK</div>
+          </div>
+          <div class="project-slide">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=160&fit=crop&q=80" alt="Sunshine City" loading="lazy">
+            <div class="caption">SUNSHINE CITY</div>
+          </div>
+          <div class="project-slide">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=160&fit=crop&q=80" alt="FLC Quy Nhơn Resort" loading="lazy">
+            <div class="caption">FLC QUY NHƠN RESORT</div>
+          </div>
+          <div class="project-slide">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=160&fit=crop&q=80" alt="Biệt thự cao cấp" loading="lazy">
+            <div class="caption">BIỆT THỰ CAO CẤP</div>
+          </div>
+        </div>
+        <div class="project-dots" id="projectDots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 7: TIN TỨC NỔI BẬT ===== -->
+<section class="news" id="news">
+  <div class="news-header">
+    <h2>TIN TỨC NỔI BẬT</h2>
+    <div class="underline"></div>
+  </div>
+  <div class="news-grid">
+    <div class="news-main">
+      <div class="news-main-card">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=220&fit=crop&q=80" alt="Nhà máy Tân Mỹ" loading="lazy">
+          <span class="news-badge">TIN TỨC</span>
+        </div>
+        <div class="content">
+          <div class="news-date">20/05/2024</div>
+          <h3>Tân Mỹ khánh thành dây chuyền sơn tĩnh điện công nghệ cao</h3>
+          <a href="#">Xem chi tiết →</a>
+        </div>
+      </div>
+    </div>
+    <div class="news-side">
+      <div class="news-side-item">
+        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=80&h=80&fit=crop&q=80" alt="Kiến trúc nhôm" loading="lazy">
+        <div>
+          <div class="date">15/05/2024</div>
+          <h4>Xu hướng nhôm kiến trúc 2024 – Thẩm mỹ và bền vững</h4>
+        </div>
+      </div>
+      <div class="news-divider"></div>
+      <div class="news-side-item">
+        <img src="https://images.unsplash.com/photo-1562778612-e1e0cda9915c?w=80&h=80&fit=crop&q=80" alt="Triển lãm Vietbuild" loading="lazy">
+        <div>
+          <div class="date">10/05/2024</div>
+          <h4>Tân Mỹ tham gia Vietbuild Hà Nội 2024</h4>
+        </div>
+      </div>
+    </div>
+    <div class="news-video">
+      <div class="news-video-card">
+        <div class="vid-bg"></div>
+        <div class="vid-content">
+          <div class="vid-text">
+            <h4>Tân Mỹ</h4>
+            <p>HÀNH TRÌNH PHÁT TRIỂN</p>
+          </div>
+          <button class="btn-video" onclick="alert('Video hành trình phát triển Tân Mỹ')">▶ XEM VIDEO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 8: FOOTER ===== -->
+<footer class="footer" id="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <div class="logo-square">T</div>
+        <div class="logo-text">
+          <span class="brand">TAN MY</span>
+          <span class="slogan">Thương Tồn Cùng Thời Gian</span>
+        </div>
+      </div>
+      <div class="company-name">CÔNG TY CỔ PHẦN ĐẦU TƯ & SẢN XUẤT TÂN MỸ</div>
+      <div class="contact-info">
+        <p>Lô CN1, Cụm công nghiệp Cẩm Thịnh, Cẩm Xuyên, Hà Tĩnh</p>
+        <p>📞 0239 3 741 888</p>
+        <p>✉ info@tanmy.com.vn</p>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M21.6 7.5c-.25-.93-1-1.66-1.93-1.92C18.2 5.2 12 5.2 12 5.2s-6.2 0-7.67.38c-.93.26-1.68.99-1.93 1.92C4 9 4 12 4 12s0 3.05.4 4.5c.25.93 1 1.66 1.93 1.92 1.47.38 7.67.38 7.67.38s6.2 0 7.67-.38c.93-.26 1.68-.99 1.93-1.92.4-1.45.4-4.5.4-4.5s0-3-.4-4.5zM10 15.3V8.7l5.2 3.3-5.2 3.3z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.68-1.68-1.68a1.68 1.68 0 0 0-1.68 1.68c0 .93.75 1.68 1.68 1.68zm1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="#" aria-label="Pinterest">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.64 3.14 8.58 7.38 9.84-.1-.84-.2-2.13.04-3.04.22-.84 1.42-5.78 1.42-5.78s-.36-.72-.36-1.78c0-1.67.97-2.92 2.18-2.92 1.03 0 1.52.77 1.52 1.7 0 1.04-.66 2.59-1 4.03-.29 1.2.6 2.18 1.8 2.18 2.16 0 3.82-2.28 3.82-5.57 0-2.91-2.09-4.95-5.07-4.95-3.45 0-5.48 2.59-5.48 5.26 0 1.04.4 2.16.9 2.77.1.12.11.23.08.35-.09.38-.3 1.2-.34 1.37-.05.22-.18.27-.33.2-1.27-.59-2.06-2.45-2.06-3.94 0-3.2 2.33-6.14 6.7-6.14 3.52 0 6.26 2.51 6.26 5.86 0 3.5-2.2 6.32-5.26 6.32-1.03 0-2-.53-2.33-1.16 0 0-.51 1.94-.63 2.42-.23.88-.85 1.98-1.27 2.65 1.01.31 2.08.48 3.19.48 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 0 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>VỀ CHÚNG TÔI</h4>
+      <ul>
+        <li><a href="#">Giới thiệu</a></li>
+        <li><a href="#">Tầm nhìn – Sứ mệnh</a></li>
+        <li><a href="#">Năng lực sản xuất</a></li>
+        <li><a href="#">Chứng nhận</a></li>
+        <li><a href="#">Lịch sử phát triển</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>NHÓM TÂN MỸ</h4>
+      <ul>
+        <li><a href="#">Hệ nhôm ZAVA</a></li>
+        <li><a href="#">Nhôm xây dựng</a></li>
+        <li><a href="#">Nhôm công nghiệp</a></li>
+        <li><a href="#">Nhôm kiến trúc</a></li>
+        <li><a href="#">Nhà máy nhôm</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>GIA DỤNG TÂN MỸ</h4>
+      <ul>
+        <li><a href="#">Bồn nước inox</a></li>
+        <li><a href="#">Chậu rửa inox</a></li>
+        <li><a href="#">Máy nước nóng NLMT</a></li>
+        <li><a href="#">Bồn nhựa</a></li>
+        <li><a href="#">Bể phốt Septic</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ĐĂNG KÝ NHẬN THÔNG TIN</h4>
+      <div class="footer-newsletter">
+        <p>Nhận thông tin sản phẩm, chính sách và các chương trình ưu đãi mới nhất</p>
+        <form class="newsletter-form" onsubmit="alert('Cảm ơn bạn đã đăng ký!'); return false;">
+          <input type="email" placeholder="Nhập email của bạn" required>
+          <button type="submit">✈</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p>© 2024 Tân Mỹ Group. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Chính sách bảo mật</a>
+      <a href="#">Điều khoản sử dụng</a>
+      <a href="#">Sơ đồ website</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function() {
+  'use strict';
+
+  // 1. STICKY HEADER
+  var header = document.getElementById('header');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 10) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // 2. MOBILE MENU
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('open');
+  });
+
+  // Close mobile nav on link click
+  mobileNav.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      mobileNav.classList.remove('open');
+    });
+  });
+
+  // 3. MOBILE DROPDOWN TOGGLE
+  window.toggleMobileSub = function(el) {
+    el.classList.toggle('open');
+    var sub = el.nextElementSibling;
+    if (sub) sub.classList.toggle('open');
+  };
+
+  // 4. COUNTER ANIMATION
+  var counters = document.querySelectorAll('.stat-number[data-target]');
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-target'));
+        var suffix = el.textContent.includes('+') ? '+' : '';
+        var start = 0;
+        var duration = 2000;
+        var startTime = null;
+
+        function easeOutQuart(t) {
+          return 1 - Math.pow(1 - t, 4);
+        }
+
+        function animate(currentTime) {
+          if (!startTime) startTime = currentTime;
+          var elapsed = currentTime - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          var easedProgress = easeOutQuart(progress);
+          var current = Math.round(easedProgress * target);
+
+          // Format with dots for thousands
+          if (current >= 1000) {
+            el.textContent = current.toLocaleString('en-US').replace(/,/g, '.') + suffix;
+          } else {
+            el.textContent = current + suffix;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            if (target >= 1000) {
+              el.textContent = target.toLocaleString('en-US').replace(/,/g, '.') + suffix;
+            } else {
+              el.textContent = target + suffix;
+            }
+          }
+        }
+
+        requestAnimationFrame(animate);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counters.forEach(function(c) { counterObserver.observe(c); });
+
+  // 5. PROJECT SLIDER
+  var slides = document.getElementById('projectSlides');
+  var dots = document.querySelectorAll('#projectDots .dot');
+  var currentSlide = 0;
+  var totalSlides = dots.length;
+  var slideInterval;
+
+  function goToSlide(index) {
+    currentSlide = index;
+    slides.style.transform = 'translateX(-' + (index * 100) + '%)';
+    dots.forEach(function(d) { d.classList.remove('active'); });
+    dots[index].classList.add('active');
+  }
+
+  function nextSlide() {
+    goToSlide((currentSlide + 1) % totalSlides);
+  }
+
+  function startAutoPlay() {
+    slideInterval = setInterval(nextSlide, 3000);
+  }
+
+  function stopAutoPlay() {
+    clearInterval(slideInterval);
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      stopAutoPlay();
+      goToSlide(parseInt(this.getAttribute('data-index')));
+      startAutoPlay();
+    });
+  });
+
+  startAutoPlay();
+
+  // 6. SMOOTH SCROLL for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        var headerHeight = header.offsetHeight;
+        var targetPos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        window.scrollTo({ top: targetPos, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
